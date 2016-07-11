@@ -7,15 +7,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 (function () {
   'use strict';
 
-  var EpicCard = function () {
-    function EpicCard() {
-      _classCallCheck(this, EpicCard);
+  var EpicVideo = function () {
+    function EpicVideo() {
+      _classCallCheck(this, EpicVideo);
     }
 
-    _createClass(EpicCard, [{
+    _createClass(EpicVideo, [{
       key: 'beforeRegister',
       value: function beforeRegister() {
-        this.is = 'epic-card';
+        this.is = 'epic-video';
         this.properties = {
           src: {
             type: String,
@@ -28,10 +28,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: '',
             observer: '_widthChanged'
           },
+          computedWidth: {
+            type: String,
+            notify: true
+          },
           height: {
             type: String,
             notify: true,
-            value: ''
+            value: 'auto'
           },
           ratio: {
             type: String,
@@ -117,7 +121,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
 
         };
-        this.observers = ['_heightOptionsChanged(height, ratio)'];
+        this.observers = ['_sizeOptionsChanged(height, ratio)'];
         this.listeners = {
           "iron-resize": "_handleWidthChange"
         };
@@ -139,11 +143,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: '_widthChanged',
       value: function _widthChanged(width) {
-        if (!width) {
-          return;
-        }
         if (width.includes('%')) {
-          this.customStyle['--epic-video-width'] = width;
+          console.dir(this.parentElement);
+          this.customStyle['--epic-video-width'] = this.parentElement.offsetWidth * (width.replace('%', '') / 100) + 'px';
         } else {
           this.customStyle['--epic-video-width'] = width.replace('px', '') + 'px';
         }
@@ -156,11 +158,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.updateStyles();
       }
     }, {
-      key: '_heightOptionsChanged',
-      value: function _heightOptionsChanged() {
-        var height = arguments.length <= 0 || arguments[0] === undefined ? 'auto' : arguments[0];
-        var ratio = arguments[1];
-
+      key: '_sizeOptionsChanged',
+      value: function _sizeOptionsChanged(height, ratio) {
         if (ratio) {
           this.customStyle['--epic-video-height'] = 'calc(var(--epic-video-width)*(' + ratio.split(':')[1] + '/' + ratio.split(':')[0] + '))';
         } else {
@@ -289,10 +288,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     }]);
 
-    return EpicCard;
+    return EpicVideo;
   }();
   // Register the element using Polymer's constructor.
 
 
-  Polymer(EpicCard);
+  Polymer(EpicVideo);
 })();

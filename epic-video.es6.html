@@ -13,8 +13,11 @@
         display: block;
         overflow: hidden;
         box-sizing: border-box;
+
         width: var(--epic-video-width, 100%);
         height: var(--epic-video-height, auto);
+
+        @apply(--epic-video);
 
         --google-youtube-container: {
             position: relative;
@@ -43,7 +46,7 @@
              height: 100%;
          }
 
-         @apply(--epic-video);
+
       }
 
       google-youtube {
@@ -79,11 +82,15 @@
                 notify: true,
                 value: '',
                 observer: '_widthChanged'
-              },
+            },
+            computedWidth: {
+              type: String,
+              notify: true,
+            },
               height: {
                 type: String,
                 notify: true,
-                value: ''
+                value: 'auto'
               },
               ratio: {
                 type: String,
@@ -170,7 +177,7 @@
 
             };
             this.observers = [
-              '_heightOptionsChanged(height, ratio)'
+              '_sizeOptionsChanged(height, ratio)'
             ];
             this.listeners = {
               "iron-resize": "_handleWidthChange"
@@ -183,23 +190,21 @@
         attributeChanged() {}
 
         _widthChanged(width) {
-          if (!width) {
-            return;
-          }
-          if (width.includes('%')) {
-            this.customStyle['--epic-video-width'] = width;
-          } else {
-            this.customStyle['--epic-video-width'] = `${width.replace('px','')}px`;
-          }
-          this.updateStyles();
+            if (width.includes('%')){
+                console.dir(this.parentElement);
+                this.customStyle['--epic-video-width'] = `${this.parentElement.offsetWidth * (width.replace('%','')/100)}px`;
+            } else {
+                this.customStyle['--epic-video-width'] = `${width.replace('px','')}px`;
+            }
+            this.updateStyles();
         }
 
         _handleWidthChange() {
-          this.customStyle['--epic-video-width'] = `${this.offsetWidth}px`;
-          this.updateStyles();
+            this.customStyle['--epic-video-width'] = `${this.offsetWidth}px`;
+            this.updateStyles();
         }
 
-        _heightOptionsChanged(height = 'auto', ratio) {
+        _sizeOptionsChanged(height, ratio) {
           if (ratio) {
             this.customStyle['--epic-video-height'] = `calc(var(--epic-video-width)*(${ratio.split(':')[1]}/${ratio.split(':')[0]}))`;
           } else {
