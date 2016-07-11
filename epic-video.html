@@ -15,9 +15,9 @@
         box-sizing: border-box;
 
         width: var(--epic-video-width, 100%);
-        height: var(--epic-video-height, auto);
+        height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
 
-        @apply(--epic-video);
+        /*@apply(--epic-video);*/
 
         --google-youtube-container: {
             position: relative;
@@ -25,7 +25,7 @@
               align-items: center;
               justify-content: center;
               width: var(--epic-video-width, 100%);
-              height: var(--epic-video-height, auto);
+              height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
               overflow: hidden;
               box-sizing: border-box;
         };
@@ -51,7 +51,7 @@
 
       google-youtube {
           width: var(--epic-video-width, 100%);
-          height: var(--epic-video-height, auto);
+          height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
       }
 
 

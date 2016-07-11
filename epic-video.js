@@ -161,7 +161,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: '_sizeOptionsChanged',
       value: function _sizeOptionsChanged(height, ratio) {
         if (ratio) {
-          this.customStyle['--epic-video-height'] = 'calc(var(--epic-video-width)*(' + ratio.split(':')[1] + '/' + ratio.split(':')[0] + '))';
+          this.customStyle['--epic-video-ratio-width'] = ratio.split(':')[0];
+          this.customStyle['--epic-video-ratio-height'] = ratio.split(':')[1];
         } else {
           this.customStyle['--epic-video-height'] = height;
         }
