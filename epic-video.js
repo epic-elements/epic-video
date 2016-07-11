@@ -22,26 +22,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             notify: true,
             value: ''
           },
-          width: {
-            type: String,
-            notify: true,
-            value: '',
-            observer: '_widthChanged'
-          },
-          computedWidth: {
-            type: String,
-            notify: true
-          },
-          height: {
-            type: String,
-            notify: true,
-            value: 'auto'
-          },
-          ratio: {
-            type: String,
-            notify: true,
-            value: '16:9'
-          },
           thumbnail: {
             type: String,
             notify: true,
@@ -140,34 +120,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: 'attributeChanged',
       value: function attributeChanged() {}
-    }, {
-      key: '_widthChanged',
-      value: function _widthChanged(width) {
-        if (width.includes('%')) {
-          console.dir(this.parentElement);
-          this.customStyle['--epic-video-width'] = this.parentElement.offsetWidth * (width.replace('%', '') / 100) + 'px';
-        } else {
-          this.customStyle['--epic-video-width'] = width.replace('px', '') + 'px';
-        }
-        this.updateStyles();
-      }
-    }, {
-      key: '_handleWidthChange',
-      value: function _handleWidthChange() {
-        this.customStyle['--epic-video-width'] = this.offsetWidth + 'px';
-        this.updateStyles();
-      }
-    }, {
-      key: '_sizeOptionsChanged',
-      value: function _sizeOptionsChanged(height, ratio) {
-        if (ratio) {
-          this.customStyle['--epic-video-ratio-width'] = ratio.split(':')[0];
-          this.customStyle['--epic-video-ratio-height'] = ratio.split(':')[1];
-        } else {
-          this.customStyle['--epic-video-height'] = height;
-        }
-        this.updateStyles();
-      }
     }, {
       key: '_computeParsedSrc',
       value: function _computeParsedSrc(videoSrc) {
@@ -273,7 +225,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (!isYoutubeHosted || !youtubeId) {
           return '';
         }
-        return '//img.youtube.com/vi/' + youtubeId + '/hqdefault.jpg';
+        return '//img.youtube.com/vi/' + youtubeId + '/sddefault.jpg';
       }
     }, {
       key: '_computeThumbnailSrc',

@@ -14,50 +14,21 @@
         overflow: hidden;
         box-sizing: border-box;
 
-        width: var(--epic-video-width, 100%);
-        height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
-
-        /*@apply(--epic-video);*/
-
-        --google-youtube-container: {
-            position: relative;
-            display: flex;
-              align-items: center;
-              justify-content: center;
-              width: var(--epic-video-width, 100%);
-              height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
-              overflow: hidden;
-              box-sizing: border-box;
-        };
         --google-youtube-thumbnail: {
-            position: relative;
-            display: inline-block;
-            vertical-align: middle;
-            max-width: 100%;
-            background-color: transparent;
-            height: auto;
-        };
-
-        --google-youtube-iframe: {
-             position: absolute;
-             top: 0;
-             left: 0;
-             width: 100%;
-             height: 100%;
-         }
-
-
+                padding-top: 5px;
+                position: relative;
+                object-fit: cover;
+        }
       }
 
       google-youtube {
-          width: var(--epic-video-width, 100%);
-          height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
+
       }
 
 
     </style>
     <template is="dom-if" if="[[isYoutubeHosted]]">
-      <google-youtube video-id="[[youtubeId]]" thumbnail="[[thumbnailSrc]]"></google-youtube>
+      <google-youtube video-id="[[youtubeId]]" thumbnail="[[thumbnailSrc]]" fluid=""></google-youtube>
     </template>
   </template>
 

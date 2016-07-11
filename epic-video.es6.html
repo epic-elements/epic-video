@@ -14,50 +14,21 @@
         overflow: hidden;
         box-sizing: border-box;
 
-        width: var(--epic-video-width, 100%);
-        height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
-
-        /*@apply(--epic-video);*/
-
-        --google-youtube-container: {
-            position: relative;
-            display: flex;
-              align-items: center;
-              justify-content: center;
-              width: var(--epic-video-width, 100%);
-              height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
-              overflow: hidden;
-              box-sizing: border-box;
-        };
         --google-youtube-thumbnail: {
-            position: relative;
-            display: inline-block;
-            vertical-align: middle;
-            max-width: 100%;
-            background-color: transparent;
-            height: auto;
-        };
-
-        --google-youtube-iframe: {
-             position: absolute;
-             top: 0;
-             left: 0;
-             width: 100%;
-             height: 100%;
-         }
-
-
+                padding-top: 5px;
+                position: relative;
+                object-fit: cover;
+        }
       }
 
       google-youtube {
-          width: var(--epic-video-width, 100%);
-          height: calc(var(--epic-video-width)*(var(--epic-video-ratio-height)/var(--epic-video-ratio-width));
+
       }
 
 
     </style>
     <template is="dom-if" if="[[isYoutubeHosted]]">
-      <google-youtube video-id="[[youtubeId]]" thumbnail="[[thumbnailSrc]]"></google-youtube>
+      <google-youtube video-id="[[youtubeId]]" thumbnail="[[thumbnailSrc]]" fluid></google-youtube>
     </template>
   </template>
 
@@ -76,26 +47,6 @@
                 type: String,
                 notify: true,
                 value: ''
-              },
-              width: {
-                type: String,
-                notify: true,
-                value: '',
-                observer: '_widthChanged'
-            },
-            computedWidth: {
-              type: String,
-              notify: true,
-            },
-              height: {
-                type: String,
-                notify: true,
-                value: 'auto'
-              },
-              ratio: {
-                type: String,
-                notify: true,
-                value: '16:9'
               },
               thumbnail: {
                 type: String,
@@ -189,31 +140,6 @@
         detached() {}
         attributeChanged() {}
 
-        _widthChanged(width) {
-            if (width.includes('%')){
-                console.dir(this.parentElement);
-                this.customStyle['--epic-video-width'] = `${this.parentElement.offsetWidth * (width.replace('%','')/100)}px`;
-            } else {
-                this.customStyle['--epic-video-width'] = `${width.replace('px','')}px`;
-            }
-            this.updateStyles();
-        }
-
-        _handleWidthChange() {
-            this.customStyle['--epic-video-width'] = `${this.offsetWidth}px`;
-            this.updateStyles();
-        }
-
-        _sizeOptionsChanged(height, ratio) {
-          if (ratio) {
-            this.customStyle['--epic-video-ratio-width'] = ratio.split(':')[0];
-            this.customStyle['--epic-video-ratio-height'] = ratio.split(':')[1];
-          } else {
-            this.customStyle['--epic-video-height'] = height;
-          }
-          this.updateStyles();
-        }
-
         _computeParsedSrc(videoSrc) {
           let link = this.root.ownerDocument.createElement('a');
           link.href = videoSrc;
@@ -303,7 +229,7 @@
           if (!isYoutubeHosted || !youtubeId) {
             return '';
           }
-          return `//img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+          return `//img.youtube.com/vi/${youtubeId}/sddefault.jpg`;
         }
 
         _computeThumbnailSrc(thumbnail, youtubeVideoThumbailSrc) {
