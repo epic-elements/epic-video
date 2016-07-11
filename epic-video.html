@@ -1,0 +1,62 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../google-youtube/google-youtube.html">
+<link rel="import" href="../epic-polyfills/epic-polyfills.html">
+
+</head><body><dom-module id="epic-card">
+  <template>
+    <style>
+    :host * {
+        box-sizing: border-box;
+    }
+      :host {
+        display: block;
+        overflow: hidden;
+        box-sizing: border-box;
+        width: var(--epic-video-width, 100%);
+        height: var(--epic-video-height, auto);
+
+        --google-youtube-container: {
+            position: relative;
+            display: flex;
+              align-items: center;
+              justify-content: center;
+              width: var(--epic-video-width, 100%);
+              height: var(--epic-video-height, auto);
+              overflow: hidden;
+              box-sizing: border-box;
+        };
+        --google-youtube-thumbnail: {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            max-width: 100%;
+            background-color: transparent;
+            height: auto;
+        };
+
+        --google-youtube-iframe: {
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+         }
+
+         @apply(--epic-video);
+      }
+
+      google-youtube {
+          width: var(--epic-video-width, 100%);
+          height: var(--epic-video-height, auto);
+      }
+
+
+    </style>
+    <template is="dom-if" if="[[isYoutubeHosted]]">
+      <google-youtube video-id="[[youtubeId]]" thumbnail="[[thumbnailSrc]]"></google-youtube>
+    </template>
+  </template>
+
+  </dom-module>
+<script src="epic-card.js"></script></body></html>
